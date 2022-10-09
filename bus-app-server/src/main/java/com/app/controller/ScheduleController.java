@@ -17,7 +17,7 @@ import com.app.service.IScheduleService;
 
 @RestController
 @RequestMapping("/schedule")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class ScheduleController {
 
 	@Autowired
@@ -32,25 +32,26 @@ public class ScheduleController {
 	public ResponseEntity<?> getScheduleDetails(@RequestBody ScheduleDTO schedule) {
 		return new ResponseEntity<>(scheduleService.getSchedule(schedule), HttpStatus.ACCEPTED);
 	}
-	
-//	@DeleteMapping("/cancel/{id}")
-//	public ResponseEntity<?> deleteScheduleDetails(@PathVariable Integer id) {
-//		return new ResponseEntity<>(scheduleService.deleteSchedule(id), HttpStatus.ACCEPTED);
-//	}
-	
+
+	// @DeleteMapping("/cancel/{id}")
+	// public ResponseEntity<?> deleteScheduleDetails(@PathVariable Integer id) {
+	// return new ResponseEntity<>(scheduleService.deleteSchedule(id),
+	// HttpStatus.ACCEPTED);
+	// }
+
 	@PostMapping("/distance")
 	public ResponseEntity<?> getDistance(@RequestBody ScheduleDTO schedule) {
-		return new ResponseEntity<>(scheduleService.calculateDistance(schedule),HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(scheduleService.calculateDistance(schedule), HttpStatus.ACCEPTED);
 	}
-	
+
 	@GetMapping("/getfuture")
 	public ResponseEntity<?> getFutureSchedules() {
-		return new ResponseEntity<>(scheduleService.findSchedules(),HttpStatus.OK);
+		return new ResponseEntity<>(scheduleService.findSchedules(), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> cancelSchedule(@PathVariable int id) {
 		System.out.println(id);
-		return new ResponseEntity<>(scheduleService.deleteSchedule(id),HttpStatus.OK);
+		return new ResponseEntity<>(scheduleService.deleteSchedule(id), HttpStatus.OK);
 	}
 }

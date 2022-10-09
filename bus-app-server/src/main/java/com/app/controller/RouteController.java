@@ -20,7 +20,7 @@ import com.app.service.IRouteService;
 
 @RestController
 @RequestMapping("/route")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class RouteController {
 
 	@Autowired
@@ -44,9 +44,9 @@ public class RouteController {
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteRouteDetails(@PathVariable int id){
+	public ResponseEntity<?> deleteRouteDetails(@PathVariable int id) {
 		return ResponseEntity.ok(routeService.deleteRouteById(id));
 	}
 

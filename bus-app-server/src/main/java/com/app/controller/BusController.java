@@ -22,16 +22,16 @@ import com.app.service.IBusService;
 
 @RestController
 @RequestMapping("/bus")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class BusController {
 
 	@Autowired
 	private IBusService busService;
 
 	@PostMapping("/add")
-	public ResponseEntity<?> addBusDetails(@RequestBody @Valid BusDTO bus,BindingResult br) {
-		System.out.println(" in controller "+bus );
-		if(br.hasFieldErrors()) {
+	public ResponseEntity<?> addBusDetails(@RequestBody @Valid BusDTO bus, BindingResult br) {
+		System.out.println(" in controller " + bus);
+		if (br.hasFieldErrors()) {
 			throw new RuntimeException("Invalid input");
 		}
 		Bus addedBus = busService.saveBus(bus);

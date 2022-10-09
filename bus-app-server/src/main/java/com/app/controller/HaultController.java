@@ -19,7 +19,7 @@ import com.app.service.IHaultService;
 
 @RestController
 @RequestMapping("/hault")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class HaultController {
 
 	@Autowired
@@ -39,14 +39,14 @@ public class HaultController {
 	public ResponseEntity<?> getDestinationHaults(@PathVariable String srcHault) {
 		return new ResponseEntity<>(haultService.getDestinations(srcHault), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteStation(@PathVariable int id){
+	public ResponseEntity<?> deleteStation(@PathVariable int id) {
 		return ResponseEntity.ok(haultService.deleteHault(id));
 	}
-	
+
 	@GetMapping("/get/{station}")
-	public ResponseEntity<?> getDetailsByStation(@PathVariable String station){
-		return new ResponseEntity<>(haultService.findDetailsByStation(station),HttpStatus.OK);
+	public ResponseEntity<?> getDetailsByStation(@PathVariable String station) {
+		return new ResponseEntity<>(haultService.findDetailsByStation(station), HttpStatus.OK);
 	}
 }

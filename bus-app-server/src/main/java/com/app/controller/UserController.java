@@ -45,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class UserController {
 
 	@Autowired
@@ -61,10 +61,10 @@ public class UserController {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-//	@GetMapping("/add")
-//	public ResponseEntity<?> showRegisterForm() {
-//		return new ResponseEntity<>("Login Form Has been Displayed", HttpStatus.OK);
-//	}
+	// @GetMapping("/add")
+	// public ResponseEntity<?> showRegisterForm() {
+	// return new ResponseEntity<>("Login Form Has been Displayed", HttpStatus.OK);
+	// }
 
 	@PostMapping("/add")
 	public ResponseEntity<?> addUserDetails(@RequestBody @Valid UserDTO userdto, BindingResult br) {
@@ -74,7 +74,7 @@ public class UserController {
 		UserDTO addedUser = userService.addUser(userdto);
 		mail.setTo(addedUser.getEmail());
 		mail.setSubject("Registration Mail");
-		text.append("Hello " + addedUser.getFirstName() + " " + addedUser.getLastName()+" !!!");
+		text.append("Hello " + addedUser.getFirstName() + " " + addedUser.getLastName() + " !!!");
 		text.append("\nYour account has been created successfully!!!\nYou can use " + addedUser.getEmail()
 				+ " this email to login\nHappy Traveling!!!");
 		String msg = text.toString();

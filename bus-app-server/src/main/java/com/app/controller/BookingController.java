@@ -28,7 +28,7 @@ import com.app.service.IScheduleService;
 
 @RestController
 @RequestMapping("/book")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class BookingController {
 	
 	@Autowired
