@@ -19,7 +19,7 @@ kind: PersistentVolumeClaim        # Create a PersistentVolumeClaim to request a
 metadata:                          # Claim name and labels
   name: mysql-pv-claim
   labels:
-    app: polling-app
+    app: bus-app
 spec:                              # Access mode and resource limits
   storageClassName: standard       # Request a certain storage class
   accessModes:
@@ -31,34 +31,34 @@ spec:                              # Access mode and resource limits
 apiVersion: v1                    # API version
 kind: Service                     # Type of kubernetes resource 
 metadata:
-  name: polling-app-mysql         # Name of the resource
+  name: bus-app-mysql         # Name of the resource
   labels:                         # Labels that will be applied to the resource
-    app: polling-app
+    app: bus-app
 spec:
   ports:
     - port: 3306
-  selector:                       # Selects any Pod with labels `app=polling-app,tier=mysql`
-    app: polling-app
+  selector:                       # Selects any Pod with labels `app=bus-app,tier=mysql`
+    app: bus-app
     tier: mysql
   clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment                    # Type of the kubernetes resource
 metadata:
-  name: polling-app-mysql           # Name of the deployment
+  name: bus-app-mysql           # Name of the deployment
   labels:                           # Labels applied to this deployment 
-    app: polling-app
+    app: bus-app
 spec:
   selector:
     matchLabels:                    # This deployment applies to the Pods matching the specified labels
-      app: polling-app
+      app: bus-app
       tier: mysql
   strategy:
     type: Recreate
   template:                         # Template for the Pods in this deployment
     metadata:
       labels:                       # Labels to be applied to the Pods in this deployment
-        app: polling-app
+        app: bus-app
         tier: mysql
     spec:                           # The spec for the containers that will be run inside the Pods in this deployment
       containers:
@@ -75,16 +75,16 @@ spec:
             secretKeyRef:
               name: mysql-db-url
               key: database
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mysql-user-pass
-              key: username
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-user-pass
-              key: password
+        # - name: MYSQL_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mysql-user-pass
+        #       key: username
+        # - name: MYSQL_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mysql-user-pass
+        #       key: password
         ports:
         - containerPort: 3306        # The port that the container exposes       
           name: mysql
